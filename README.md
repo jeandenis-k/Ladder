@@ -1,5 +1,5 @@
 # Ladder
-This is a guided exercise: in a small suite of steps, a program is getting coded in Haskell, by you the reader. This guide will indicate *what* is to be done at each step, with examples of use of the functions you will create. The *how* is entirely yours to find out. Enjoy!
+This is a guided exercise: in a small suite of steps, a program is getting coded in ~~Haskell~~ Ruby, by you the reader. This guide will indicate *what* is to be done at each step, with examples of use of the functions you will create. The *how* is entirely yours to find out. Enjoy!
 
 ## Introduction
 A *word ladder* is a list of words having the following characteristics
@@ -24,26 +24,33 @@ The program will read 3 arguments on the command line:
 The program will then read the word file, and print a ladder of words starting with *s* and ending with *t*. The ladder should be as short as possible. If there is no possible ladder starting with *s* and ending with *t*, then the program will print nothing.
 
 Here's the main program:
-```Haskell
-import System.Environment
+```ruby
+#!/usr/bin/env ruby
 
-main = getArgs >>= checkArgs >>= readWords >>= printLadder
-    where
-    checkArgs :: [String] -> IO [String]
-    checkArgs args | length args == 3 = return args
-    checkArgs args | otherwise        = error "usage: ladder <wordlistfile> <start> <end>"
+class Main
+  def call
+    if ARGV.length != 3
+      puts 'usage: ladder <wordlistfile> <start> <end>'
+    else
+      word_list_filepath, start_word, target_word = ARGV
+      word_list = File.readlines word_list_filepath
+      puts ladder(word_list, start_word, target_word)
+    end
+  end
 
-    readWords :: [String] -> IO ([String],String,String)
-    readWords [f,s,t] = do
-        cs <- fmap (filter (\w -> length w == length s) . words) $ readFile f 
-        return (cs, s, t)
+  # @param word_list [Array<String>]
+  # @param start_word [String]
+  # @param target_word [String]
+  def ladder(word_list, start_word, target_word)
+    raise NotImplementedError
+  end
+end
 
-    printLadder :: ([String],String,String) -> IO ()
-    printLadder (ws,s,t) = putStrLn $ unwords $ ladder ws s t
+Main.new.call
 ```
 The definition of the function 
-```Haskell
-ladder :: [String] -> String ->String -> [String]
+```ruby
+def ladder(word_list, start_word, target_word)
 ```
 is missing: let's create it, one step at a time.
 
