@@ -105,10 +105,10 @@ Here's an example of use of this method:
 ```Ruby
 dictionary = %w[bag bat bog dog fog] ⏎
 
-Neighbor.neighbors "fog", dictionary ⏎
+Neighbor.find_neighbors "fog", dictionary ⏎
   ["bog","dog"]
 
-Neighbor.neighbors "bog", dictionary ⏎
+Neighbor.find_neighbors "bog", dictionary ⏎
   ["bag","dog","fog"]
 ```
 *Write an expression of type `Array<Array<String>>` that yields the neighbors of the neighbors of "bog" in the word list above*
@@ -130,7 +130,7 @@ end
 ```
 that given a word `w` and a list of words `ws`, yields an array `[(n,w),(m,w),..,(z,w)]` of all the neighbors to `w` in `ws`.
 
-Here's an example of use of this function:
+Here's an example of use of this method:
 ```ruby
 dictionary = %w[bag bat bog dog fog] ⏎
 
