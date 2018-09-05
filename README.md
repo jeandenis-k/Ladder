@@ -64,7 +64,7 @@ Write a class method
 class Neighbor
   # @param word1 [String]
   # @param word2 [String]
-  def neighbor?(word1, word2)
+  def self.neighbor?(word1, word2)
     ...
   end
 end
@@ -91,43 +91,54 @@ Neighbor.neighbor?("at", "cat") ⏎
 *If your definition is using high order functions: Can you think of an alternative definition that would use recursion?*
 ## 2. Connecting neighbors
 ### 2.1 Neighbors of a word
-Let's use our function to retrieve all the words that are neighbor a given word in a word list. This word list will serve as dictionary, so we might as well define a type alias for it: 
-```Haskell
-type Dictionary = [String]
-
-neighbors :: String -> Dictionary -> [String]
+Let's use our method to retrieve all the words that are neighbor a given word in a word list. This word list will serve as dictionary.
+```Ruby
+class Neighbor
+  # @param word [String]
+  # @param dictionary [Array<String>]
+  def self.find_neighbours(word, dictionary)
+    ...
+  end
+end
 ```
-Here's an example of use of this function:
-```Haskell
-let ws = words "bag bat bog dog fog" ⏎
+Here's an example of use of this method:
+```Ruby
+dictionary = %w[bag bat bog dog fog] ⏎
 
-neighbors "fog" ws ⏎
-["bog","dog"]
+Neighbor.neighbors "fog", dictionary ⏎
+  ["bog","dog"]
 
-neighbors "bog" ws ⏎
-["bag","dog","fog"]
+Neighbor.neighbors "bog", dictionary ⏎
+  ["bag","dog","fog"]
 ```
-*Write an expression of type `[[String]]` that yields the neighbors of the neighbors of "bog" in the word list above*
+*Write an expression of type `Array<Array<String>>` that yields the neighbors of the neighbors of "bog" in the word list above*
 ### 2.2 Connections between words
-Keeping track of which word neighbors which other word will be useful if we want to explore the word list. Such a connection between two words deserves a type alias:
-```Haskell
-type Neighbors = (String,String)
+Keeping track of which word neighbors which other word will be useful if we want to explore the word list. Such a connection between two words deserves a dedicated class:
+```ruby
+NeighbourRelation = Struct.new :from, :to
 ```
-Write a function
-```Haskell
-neighborsTo :: String -> Dictionary -> [Neighbors]
+Write a method
+```ruby
+class Neighbour
+  # @param word [String]
+  # @param dictionary [Array<String>]
+  # @return Array<NeighbourRelation>
+  def self.neighbors_to(word, dictionary)
+    ...
+  end
+end
 ```
-that given a word `w` and a list of words `ws`, yields a list `[(n,w),(m,w),..,(z,w)]` of all the neighbors to `w` in `ws`.
+that given a word `w` and a list of words `ws`, yields an array `[(n,w),(m,w),..,(z,w)]` of all the neighbors to `w` in `ws`.
 
 Here's an example of use of this function:
-```Haskell
-let ws = words "bag bat bog dog fog" ⏎
+```ruby
+dictionary = %w[bag bat bog dog fog] ⏎
 
-neighborsTo "fog" ws ⏎
-[("bog","fog"),("dog","fog")]
+Neighbour.neighbors_to "fog" dictionary ⏎
+  [("bog","fog"),("dog","fog")]
 
-neighborsTo "bog" ws ⏎
-[("bag","bog"),("dog","bog"),("fog","bog")]
+Neighbour.neighbors_to "bog" dictionary ⏎
+  [("bag","bog"),("dog","bog"),("fog","bog")]
 ```
 ## 3. Path
 When we have a list of neighbors `[Neighbors]`, each item in this list can be viewed as a step on a word ladder (provided that the list contains the *right* steps of course).
