@@ -27,7 +27,7 @@ Here's the main program:
 ```ruby
 #!/usr/bin/env ruby
 
-class Main
+class WordLadder
   def call
     if ARGV.length != 3
       puts 'usage: ladder <wordlistfile> <start> <end>'
@@ -46,37 +46,45 @@ class Main
   end
 end
 
-Main.new.call
+WordLadder.new.call
 ```
-The definition of the function 
+The definition of the method 
 ```ruby
 def ladder(word_list, start_word, target_word)
+  ...
+end
 ```
 is missing: let's create it, one step at a time.
 
 ## 1. Neighbor
 Two words are said to be *neighbors* if the have the same number of letters, and differ only by one letter.
-Write a function
+Write a class method
 
-```Haskell
-neighbor :: String -> String -> Bool
+```ruby
+class Neighbor
+  # @param word1 [String]
+  # @param word2 [String]
+  def neighbor?(word1, word2)
+    ...
+  end
+end
 ```
-that evaluates to `True` if its arguments are neighbors, `False` otherwise. Here are some examples of use of this function:
-```Haskell
-neighbor "cat" "dog" ⏎
-False
-neighbor "cat" "bat" ⏎
-True
-neighbor "cat" "cot" ⏎
-True
-neighbor "cat" "cob" ⏎
-False
-neighbor "cat" "cab" ⏎
-True
-neighbor "dog" "do" ⏎
-False
-neighbor "at" "cat" ⏎
-False
+that evaluates to `true` if its arguments are neighbors, `false` otherwise. Here are some examples of use of this function:
+```ruby
+Neighbor.neighbor?("cat", "dog") ⏎
+  false
+Neighbor.neighbor?("cat", "bat") ⏎
+  true
+Neighbor.neighbor?("cat", "cot") ⏎
+  true
+Neighbor.neighbor?("cat", "cob") ⏎
+  false
+Neighbor.neighbor?("cat", "cab") ⏎
+  true
+Neighbor.neighbor?("dog", "do") ⏎
+  false
+Neighbor.neighbor?("at", "cat") ⏎
+  false
 ```
 *If your definition is using recursion: Can you think of an alternative definition that would use a high order function?*
 
