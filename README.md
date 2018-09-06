@@ -91,7 +91,7 @@ Neighbor.neighbor?("at", "cat") ⏎
 *If your definition is using high order functions: Can you think of an alternative definition that would use recursion?*
 ## 2. Connecting neighbors
 ### 2.1 Neighbors of a word
-Let's use our method to retrieve all the words that are neighbor a given word in a word list. This word list will serve as dictionary.
+Let's use our method to retrieve all the words that are neighbor to a given word in a word list that serves as a dictionary.
 ```Ruby
 class Neighbor
   # @param word [String]
